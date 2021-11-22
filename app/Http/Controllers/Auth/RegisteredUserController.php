@@ -35,10 +35,10 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'username' => ['required', 'string', 'min:3', 'max:20', 'required', 'unique:users,username'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'no_phone' => ['required', 'string', 'max:255']
+            'no_phone' => ['required', 'string', 'max:255'],
         ]);
 
         $user = User::create([
@@ -47,13 +47,14 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'no_phone' => $request->no_phone,
-
         ]);
 
-        event(new Registered($user));
-
-        Auth::login($user);
-
-        return redirect(RouteServiceProvider::HOME);
+        // return redirect(RouteServiceProvider::HOME);
+        return response()->json(
+            [
+                "message" => "get method succes",
+                "data" => $user
+            ]
+        );
     }
 }
