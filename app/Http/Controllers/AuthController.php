@@ -51,6 +51,7 @@ class AuthController extends Controller
                 'message' => 'successfully',
                 'errors' => null,
                 'content' => [
+                    'data' => $user,
                     'status_code' => 200,
                     'access_token' => $tokenResult,
                     'token_type' => 'Bearer',
@@ -79,7 +80,7 @@ class AuthController extends Controller
             'status' => "Success",
             'message' => "Logout all successfully",
             'errors' => null,
-            'content' => null, 
+            'content' => null,
         ];
         return response()->json($respon, 200);
     }
@@ -105,9 +106,9 @@ class AuthController extends Controller
                 'status' => "Success",
                 'message' => "Register successfully",
                 'errors' => null,
-                'content' => null, 
+                'content' => null,
             ]);
-        
+
             event(new Registered($user));
 
     }
