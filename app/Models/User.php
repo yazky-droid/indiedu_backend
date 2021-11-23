@@ -23,11 +23,8 @@ class User extends Authenticatable
         'username',
         'email',
         'password',
-<<<<<<< HEAD
         'status',
-=======
         'no_phone'
->>>>>>> develop
     ];
 
     /**
