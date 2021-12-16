@@ -2,10 +2,10 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\NewPasswordController;
+use App\Http\Controllers\SociaLiteController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VerificationController;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -29,4 +29,8 @@ Route::get('email/verify/{id}/{hash}', [VerificationController::class, 'verify']
 Route::post('email/verification-notification', [VerificationController::class, 'sendVerificationEmail'])->middleware('auth:sanctum');
 Route::post('forgot-password', [NewPasswordController::class, 'forgotPassword']);
 Route::post('reset-password', [NewPasswordController::class, 'reset']);
-Route::get('/reset-password', [NewPasswordController::class, 'getTokenReset'])->name('password.reset');
+Route::get('reset-password', [NewPasswordController::class, 'getTokenReset'])->name('password.reset');
+
+
+Route::get('auth/{provider}', [SociaLiteController::class, 'redirectToProvider']);
+Route::get('auth/{provider}/callback', [SociaLiteController::class, 'handleProvideCallback']);
