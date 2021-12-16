@@ -9,12 +9,16 @@ use App\Models\User;
 use Illuminate\Validation\Rules;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+
+
 
 
 class AuthController extends Controller
 {
-    public function login(Request $request) {
-        $validate = \Validator::make($request->all(), [
+    public function login(Request $request)
+    {
+        $validate = Validator::make($request->all(), [
             'email' => 'required',
             'password' => 'required',
         ]);
@@ -27,7 +31,7 @@ class AuthController extends Controller
                 'content' => null,
             ];
             return response()->json($respon, 200);
-        }else {
+        } else {
             $credentials = request(['email', 'password']);
             $credentials = Arr::add($credentials, 'status', 'aktif');
             if (!Auth::attempt($credentials)) {
@@ -35,19 +39,19 @@ class AuthController extends Controller
                     'status' => 'error',
                     'message' => 'Unauthorized',
                     'errors' => null,
-                    'content' =>null,
+                    'content' => null,
                 ];
                 return response()->json($respon, 401);
             }
             $user = User::where('email', $request->email)->first();
-            if (! \Hash::check($request->password, $user->password, [])){
+            if (!Hash::check($request->password, $user->password, [])) {
                 throw new \Exception('Error in Login');
             }
 
 
             $tokenResult = $user->createToken('token-auth')->plainTextToken;
             $respon = [
-                'status' =>'success',
+                'status' => 'success',
                 'message' => 'successfully',
                 'errors' => null,
                 'content' => [
@@ -55,12 +59,13 @@ class AuthController extends Controller
                     'access_token' => $tokenResult,
                     'token_type' => 'Bearer',
                 ]
-                ];
-                return response()->json($respon, 200);
+            ];
+            return response()->json($respon, 200);
         }
     }
 
-    public function logout(Request $request) {
+    public function logout(Request $request)
+    {
         $user = $request->user();
         $user->currentAccessToken()->delete();
         $respon = [
@@ -72,19 +77,21 @@ class AuthController extends Controller
         return response()->json($respon, 200);
     }
 
-    public function logoutall(Request $request) {
+    public function logoutall(Request $request)
+    {
         $user = $request->user();
         $user->tokens()->delete();
         $respon = [
             'status' => "Success",
             'message' => "Logout all successfully",
             'errors' => null,
-            'content' => null, 
+            'content' => null,
         ];
         return response()->json($respon, 200);
     }
 
-    public function register(Request $request) {
+    public function register(Request $request)
+    {
         // $validate = \Validator::make($request->all(), [
         //     'email' => ['required', 'string', 'max:255', 'unique:users'],
         //     'password' => ['required', 'confirmed', Rules\Password::defaults()],
@@ -96,20 +103,18 @@ class AuthController extends Controller
             'password' => ['required'],
         ]);
 
-            $user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-            ]);
-            return response()->json([
-                'status' => "Success",
-                'message' => "Register successfully",
-                'errors' => null,
-                'content' => null, 
-            ]);
-        
-            event(new Registered($user));
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+        return response()->json([
+            'status' => "Success",
+            'message' => "Register successfully",
+            'errors' => null,
+            'content' => null,
+        ]);
 
+        event(new Registered($user));
     }
-
 }
