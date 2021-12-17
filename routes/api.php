@@ -6,7 +6,6 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\SociaLiteController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\UserController;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
