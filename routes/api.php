@@ -1,10 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\SociaLiteController;
 use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -32,9 +32,9 @@ Route::post('email/verification-notification', [VerificationController::class, '
 // Route::get('reset-password', [NewPasswordController::class, 'getTokenReset'])->name('password.reset');
 
 // Reset PW
-Route::post('/forgot-password',[NewPasswordController::class, 'forgotPassword'])->name('password.email');
-Route::post('/forgot-password/{id}',[NewPasswordController::class, 'verifOtp'])->name('password.verif');
-Route::post('/reset-password/{id}',[NewPasswordController::class, 'resetPassword'])->name('password.reset');
+Route::post('/forgot-password', [NewPasswordController::class, 'forgotPassword'])->name('password.email');
+Route::post('/forgot-password/{id}', [NewPasswordController::class, 'verifOtp'])->name('password.verif');
+Route::post('/reset-password/{id}', [NewPasswordController::class, 'resetPassword'])->name('password.reset');
 
 
 Route::get('auth/{provider}', [SociaLiteController::class, 'redirectToProvider']);
