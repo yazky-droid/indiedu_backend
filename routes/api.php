@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\NewPasswordController;
-use App\Http\Controllers\SociaLiteController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\NewPasswordController;
+use App\Http\Controllers\Auth\SociaLiteController;
+use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\VerificationController;
 
 /*
 |--------------------------------------------------------------------------
