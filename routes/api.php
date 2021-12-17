@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\NewPasswordController;
-use App\Http\Controllers\SociaLiteController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\NewPasswordController;
+use App\Http\Controllers\Auth\SociaLiteController;
+use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\VerificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,7 +30,5 @@ Route::post('email/verification-notification', [VerificationController::class, '
 Route::post('forgot-password', [NewPasswordController::class, 'forgotPassword']);
 Route::post('reset-password', [NewPasswordController::class, 'reset']);
 Route::get('reset-password', [NewPasswordController::class, 'getTokenReset'])->name('password.reset');
-
-
 Route::get('auth/{provider}', [SociaLiteController::class, 'redirectToProvider']);
 Route::get('auth/{provider}/callback', [SociaLiteController::class, 'handleProvideCallback']);
