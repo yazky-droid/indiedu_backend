@@ -31,7 +31,8 @@ class AuthController extends Controller
                 return response()->json([
                     'status' => 'Success',
                     'massage' => 'Login Successful',
-                    'token' => $token->plainTextToken
+                    'token' => $token->plainTextToken,
+                    'data' => $user
                 ]);
             } else {
                 return response()->json([

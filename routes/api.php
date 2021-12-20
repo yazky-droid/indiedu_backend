@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\SociaLiteController;
 use App\Http\Controllers\Auth\VerificationController;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +20,8 @@ use App\Http\Controllers\UserController;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
+
+Route::view('/', '/')->name('login');
 
 Route::post('register', [UserController::class, 'store']);
 Route::post('login', [AuthController::class, 'login']);

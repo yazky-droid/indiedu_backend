@@ -7,6 +7,7 @@ use App\Models\User;
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
+use App\Http\Controllers\Controller;
 
 
 class SociaLiteController extends Controller
